@@ -1,0 +1,28 @@
+{
+    "name": "coscheduler-server",
+    "version": "1.0.0",
+    "description": "server for coscheduler",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "serve": "ts-node src/index.ts",
+        "start": "nodemon",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Lrdwhyt@gmail.com",
+    "license": "0BSD",
+    "dependencies": {
+        "koa": "^2.13.4",
+        "koa-router": "^12.0.0",
+        "nodemon": "^2.0.20",
+        "ts-node": "^10.9.1"
+    },
+    "devDependencies": {
+        "@types/koa": "^2.13.5",
+        "@types/koa-router": "^7.4.4",
+        "@types/node": "^18.11.9",
+        "eslint": "^8.27.0",
+        "prettier": "^2.7.1",
+        "typescript": "^4.8.4"
+    }
+}
