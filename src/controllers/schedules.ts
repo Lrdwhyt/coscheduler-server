@@ -10,7 +10,7 @@ export const get = async (ctx: ParameterizedContext) => {
         return;
     }
 
-    ctx.response.body = schedule;
+    ctx.body = schedule;
 };
 
 export const update = async (ctx: ParameterizedContext) => {
@@ -20,13 +20,18 @@ export const update = async (ctx: ParameterizedContext) => {
 export const create = async (ctx: ParameterizedContext) => {
     // create new schedule
     const schedule: Schedule = {
-        title: '',
-        blockDuration: 1,
-        blockCount: 1,
+        title: ctx.request.body.title,
+        blockDuration: ctx.request.body.blockDuration,
+        blockCount: ctx.request.body.blockCount,
         entries: {},
-        startTime: new Date(),
-        scale: [],
+        startTime: ctx.request.body.startTime,
+        scale: ctx.request.body.scale,
     };
 
     const id = createSchedule(schedule);
+
+    ctx.body = schedule;
+    ctx.set({
+        Location: `${ctx.request.href}/${id}`,
+    });
 };

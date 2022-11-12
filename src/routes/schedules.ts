@@ -1,4 +1,5 @@
 import * as Router from '@koa/router';
+import { koaBody } from 'koa-body';
 
 import { get, update, create } from '../controllers/schedules';
 
@@ -7,7 +8,7 @@ const router = new Router({
 });
 
 router.get('/:id', get);
-router.post('/', create);
-router.patch('/:id', update);
+router.post('/', koaBody(), create);
+router.patch('/:id', koaBody(), update);
 
 export default router;
