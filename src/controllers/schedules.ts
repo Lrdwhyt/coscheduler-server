@@ -19,7 +19,7 @@ export const get = async (ctx: ParameterizedContext) => {
 };
 
 export const update = async (ctx: ParameterizedContext) => {
-    const scheduleChanges: Partial<Schedule> = ctx.request.body;
+    const scheduleChanges: Partial<Schedule> = JSON.parse(ctx.request.body);
 
     try {
         const updatedSchedule = updateSchedule(ctx.params.id, scheduleChanges);
@@ -31,13 +31,14 @@ export const update = async (ctx: ParameterizedContext) => {
 };
 
 export const create = async (ctx: ParameterizedContext) => {
+    const body = JSON.parse(ctx.request.body);
     const schedule: Schedule = {
-        title: ctx.request.body.title,
-        blockDuration: ctx.request.body.blockDuration,
-        blockCount: ctx.request.body.blockCount,
+        title: body.title,
+        blockDuration: body.blockDuration,
+        blockCount: body.blockCount,
         entries: {},
-        startTime: ctx.request.body.startTime,
-        scale: ctx.request.body.scale,
+        startTime: body.startTime,
+        scale: body.scale,
     };
 
     const id = createSchedule(schedule);
