@@ -1,12 +1,17 @@
 import { ParameterizedContext } from 'koa';
 import { Schedule } from '../models/Schedule';
-import { createSchedule, getSchedule } from '../services/memory.db';
+import {
+    createSchedule,
+    getSchedule,
+    updateSchedule,
+} from '../services/memory.db';
 
 export const get = async (ctx: ParameterizedContext) => {
     const id: string = ctx.params.id;
     const schedule = getSchedule(id);
     if (schedule === undefined) {
         ctx.status = 404;
+        ctx.message = "Schedule ID doesn't exist";
         return;
     }
 
@@ -14,11 +19,18 @@ export const get = async (ctx: ParameterizedContext) => {
 };
 
 export const update = async (ctx: ParameterizedContext) => {
-    // update schedule
+    const scheduleChanges: Partial<Schedule> = ctx.request.body;
+
+    try {
+        const updatedSchedule = updateSchedule(ctx.params.id, scheduleChanges);
+        ctx.body = updatedSchedule;
+    } catch (err) {
+        ctx.status = 404;
+        return;
+    }
 };
 
 export const create = async (ctx: ParameterizedContext) => {
-    // create new schedule
     const schedule: Schedule = {
         title: ctx.request.body.title,
         blockDuration: ctx.request.body.blockDuration,
