@@ -38,7 +38,7 @@ export const create = async (ctx: ParameterizedContext) => {
         blockCount: body.blockCount,
         entries: {},
         startTime: body.startTime,
-        scale: body.scale,
+        levels: body.levels,
     };
 
     const id = createSchedule(schedule);
